@@ -4,10 +4,10 @@ class Particle {
 var options={
                 'restitution':0.6,
                 'friction':1.0 ,
-                'density':1.0,
+                'density':100.0,
                 isStatic:false
             }
-      this.body = Bodies.circle(x, y, radius/2, options);
+      this.body = Bodies.circle(x, y, radius/1.9, options);
       this.radius=radius;
       this.color= color(random(80,255),random(80,255),random(80,255));
 

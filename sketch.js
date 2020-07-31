@@ -6,7 +6,7 @@ const Bodies= Matter.Bodies;
 
 var ground1,ground2,ground3,ground4;
 var b1,b2,b3,b4,b5,b6,b7,b8;
-var particle = [];
+var particle 
 var plinkos = [];
 var divisions = []; 
 var i=-1,s=1;
@@ -14,7 +14,11 @@ var divisionHeight=470
 var a=1;
 var r=0;
 var q=0;
-var e=1;
+var  turn = 5;
+var score = 0 ;
+var gameState = "start";
+var count=0;
+
 function setup() {
 
   engine = Engine.create();
@@ -35,11 +39,11 @@ function setup() {
   b5 = new Box(330,620,10,330);
   b6 = new Box(410,620,10,330);
   b7 = new Box(490,620,10,330);
+  */
   b8 = new Box(250,790,490,10)
-*/
-//var render = Render.create({ element: document.body, engine: engine, options: { width: 1600, height: 700, wireframes: false } });
 
-//Render.run(render);
+var render = Render.create({ element: document.body, engine: engine, options: { width: 1600, height: 700, wireframes: false } });
+Render.run(render);
 Engine.run(engine);
 }
 
@@ -64,6 +68,7 @@ for( var k = 10;k<=width;k+80){
  
 }*/
 
+
 if (a<=3){
 
 for (var t=10;t<500;t=t+80){
@@ -78,19 +83,6 @@ for( var k = 0;k<divisions.length;k++){
   divisions[k].display();
 }
 
-q=random(250,260)
-
-if(frameCount%15===0&&e<250){
-
-  particle.push(new Particle(q ,30,12));
-
-e++;
-}
-for( var j = 0;j<particle.length;j++){
-  particle[j].display();
-}
-
-
 if (r<10) {
   
 for( var j = 15;j<=width;j=j+40){
@@ -99,7 +91,7 @@ for( var j = 15;j<=width;j=j+40){
 
 
 
-for( var j = 30;j<=width;j=j+50){
+for( var j = 30;j<=width;j=j+40){
   plinkos.push(new Pinko(j ,180,15));
 }
 
@@ -111,7 +103,7 @@ for( var j = 15;j<=width;j=j+40){
 
 
 
-for( var j = 30;j<=width;j=j+50){
+for( var j = 30;j<=width;j=j+40){
   plinkos.push(new Pinko(j ,340,15));
 }
 
@@ -129,12 +121,18 @@ for( var j = 0;j<plinkos.length;j++){
   plinkos[j].display();
 }
 
+push();
+stroke(255,255,60);
+strokeWeight(6)
+line(0,530,500,530)
+pop()
 /*  
 for( var k = 0;k<=8;k+1){
   divisions[k].display();
 }*/
- s=s+1;
-console.log(s);
+s=s+1;
+
+console.log(gameState)
   ground1.display();
   ground2.display();
   ground3.display();
@@ -146,6 +144,76 @@ console.log(s);
   b4.display();
   b5.display();
   b6.display();
-  b7.display();
-  b8.display();*/
+  b7.display();*/
+  b8.display();
+
+  textSize(17)
+  text ("YOUR SCORE IS "+ score , 50 , 50) ;
+  text ("TURNS LEFT " + turn , 300 , 50) ;
+console.log(count)
+  if (particle != null) 
+   {
+     particle.display();
+
+     if (particle.body.position.y > 540)
+     {
+      if (particle.body.position.x <85 && particle.body.position.x > 417) 
+      {
+        score = score + 500;
+        particle = null;
+        count++;
+        if (turn<1)     {     gameState="end";}
+       
+        
+      }
+
+     else if (particle.body.position.x <167 && particle.body.position.x > 333) 
+      {
+        score = score + 100;
+        particle = null;
+        count++;
+        if (turn<1)          gameState="end";
+       
+        
+      }
+
+      else 
+      {
+        score = score + 200;
+        particle = null;
+        count++;
+        if (turn<1)          gameState="end";
+       
+        
+      }
+
+
+     }
+   }
+
+   if (gameState=="end"){
+    push ();
+    textSize(50); 
+    stroke(255)
+    text("GAME OVER",100,400);
+     pop ();
+   }
+
+}
+
+
+
+
+function mouseReleased(){
+  
+  console.log(turn);
+if(turn>0){
+  if (gameState!=="end") {
+    particle = new Particle(mouseX , 30,12);
+    turn--;
+  }
+}
+ 
+
+ 
 }
