@@ -14,10 +14,11 @@ var divisionHeight=470
 var a=1;
 var r=0;
 var q=0;
-var  turn = 5;
+var  turn = 0;
 var score = 0 ;
 var gameState = "start";
 var count=0;
+var r1,r2,r3;
 
 function setup() {
 
@@ -25,6 +26,10 @@ function setup() {
   world = engine.world;
   
   createCanvas(500,800);
+ 
+  r1= 50 * Math.round( random(1,3));
+  r2= 50 * Math.round( random(4,6));
+  r3= 50 * Math.round( random(6,10));
 
 
   ground1= new Ground(250,800,500,10);
@@ -42,8 +47,8 @@ function setup() {
   */
   b8 = new Box(250,790,490,10)
 
-var render = Render.create({ element: document.body, engine: engine, options: { width: 1600, height: 700, wireframes: false } });
-Render.run(render);
+//var render = Render.create({ element: document.body, engine: engine, options: { width: 1600, height: 700, wireframes: false } });
+//Render.run(render);
 Engine.run(engine);
 }
 
@@ -125,6 +130,14 @@ push();
 stroke(255,255,60);
 strokeWeight(6)
 line(0,530,500,530)
+
+/*
+line(0,580,85,580)
+line(417,580,500,580)
+ line(85,600,167,600)
+line(333,600,417,600)
+line(167,620,333,620)
+*/
 pop()
 /*  
 for( var k = 0;k<=8;k+1){
@@ -146,56 +159,73 @@ console.log(gameState)
   b6.display();
   b7.display();*/
   b8.display();
-
+turn = 5-count
   textSize(17)
   text ("YOUR SCORE IS "+ score , 50 , 50) ;
   text ("TURNS LEFT " + turn , 300 , 50) ;
-console.log(count)
+
+push();
+textSize(30)
+stroke
+text (r3,25,570);
+text (r2,105,570);
+text (r1,185,570);
+text (r1,265,570);
+text (r2,345,570);
+text (r3,425,570);
+pop ();
+
+
+//console.log(count)
   if (particle != null) 
    {
      particle.display();
 
      if (particle.body.position.y > 540)
      {
-      if (particle.body.position.x <85 && particle.body.position.x > 417) 
+       console.log(particle.body.position.x)
+      if (particle.body.position.x <85 || particle.body.position.x > 417) 
       {
-        score = score + 500;
-        particle = null;
-        count++;
-        if (turn<1)     {     gameState="end";}
+        score = score + r3;
+        
+        console.log(r3)
+       
        
         
       }
 
-     else if (particle.body.position.x <167 && particle.body.position.x > 333) 
+   else if ((particle.body.position.x >85 && particle.body.position.x <167 ) || (particle.body.position.x > 333 && particle.body.position.x < 417) )
       {
-        score = score + 100;
-        particle = null;
-        count++;
-        if (turn<1)          gameState="end";
-       
-        
+        score = score + r2;
+        console.log(r2)
+
+
       }
 
       else 
       {
-        score = score + 200;
-        particle = null;
-        count++;
-        if (turn<1)          gameState="end";
+        score = score + r1;
+        console.log(r1)
+
+
+        
        
         
       }
 
-
+      particle = null;
+        count++;
+        if (count>4)     
+        {   gameState="end";}
      }
    }
+ 
 
    if (gameState=="end"){
     push ();
     textSize(50); 
     stroke(255)
-    text("GAME OVER",100,400);
+    text("GAME OVER",100,320);
      pop ();
    }
 
@@ -207,10 +237,10 @@ console.log(count)
 function mouseReleased(){
   
   console.log(turn);
-if(turn>0){
+if(count<6){
   if (gameState!=="end") {
     particle = new Particle(mouseX , 30,12);
-    turn--;
+    //turn--;
   }
 }
  
