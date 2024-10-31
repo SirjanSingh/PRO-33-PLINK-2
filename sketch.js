@@ -180,6 +180,9 @@ function draw() {
 
 
   //console.log(count)
+  for(let i = 0 ; i < particles.length; i ++){
+    particles[i].display();
+  }
   console.log(particleCount + " " + particles.length + " " + checkie)
   if (particles.length > 0 && particleCount == checkie) // the length give a sure check for array to conatin any balls in it
 
@@ -219,7 +222,7 @@ function draw() {
 
       // particle = null;
       checkie++;  
-      if (count > 4) { gameState = "end"; }
+      if (particles.length > 4) { gameState = "end"; }
     }
   }
 
