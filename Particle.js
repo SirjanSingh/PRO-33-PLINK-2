@@ -9,6 +9,7 @@ var options={
             }
       this.body = Bodies.circle(x, y, radius/1.9, options);
       this.radius=radius;
+      this.scored = false;
       this.color= color(random(80,255),random(80,255),random(80,255));
 
       World.add(world, this.body);
