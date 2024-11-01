@@ -2,7 +2,7 @@
 class Particle {
     constructor(x, y,radius) {
 var options={
-                'restitution':0.6,
+                'restitution':random(0.1,0.6),
                 'friction':1.0 ,
                 'density':100.0,
                 isStatic:false

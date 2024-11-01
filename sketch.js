@@ -19,6 +19,7 @@ var score = 0 ;
 var gameState = "start";
 var count=0;
 var r1,r2,r3;
+let particles = [];
 
 function setup() {
 
@@ -175,7 +176,9 @@ text (r2,345,570);
 text (r3,425,570);
 pop ();
 
-
+for(let i = 0; i < particles.length; i++){
+  particles[i].display();
+}
 //console.log(count)
   if (particle != null) 
    {
@@ -240,6 +243,7 @@ function mouseReleased(){
 if(count<6){
   if (gameState!=="end") {
     particle = new Particle(mouseX , 30,12);
+    particles.push(particle);
     //turn--;
   }
 }
