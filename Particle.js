@@ -5,7 +5,7 @@ var options={
                 'restitution':random(0.1,0.6),
                 'friction':1.0 ,
                 'density':100.0,
-                isStatic:false
+                isStatic:false 
             }
       this.body = Bodies.circle(x, y, radius/1.9, options);
       this.radius=radius;
@@ -23,6 +23,7 @@ var options={
       fill (this.color);
       ellipseMode(CENTER);
       ellipse( 0, 0,this.radius);
+      
       pop();
     }
   }
