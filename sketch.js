@@ -20,7 +20,8 @@ var gameState = "start";
 var count = 0;
 var r1, r2, r3;
 let particles = [];
-
+let seek = 0;
+let nope = 0;
 function setup() {
 
   engine = Engine.create();
@@ -175,47 +176,41 @@ function draw() {
   text(r2, 345, 570);
   text(r3, 425, 570);
   pop();
-
-  for (let i = 0; i < particles.length; i++) {
+  for (let i = 0; i < particles.length;i++ ) {
     particles[i].display();
   }
-  //console.log(count)
-  if (particle != null) {
-    particle.display();
-
-    if (particle.body.position.y > 540) {
-      console.log(particle.body.position.x)
-      if (particle.body.position.x < 85 || particle.body.position.x > 417) {
-        score = score + r3;
-
-        console.log(r3)
-
-
-
-      }
-
-      else if ((particle.body.position.x > 85 && particle.body.position.x < 167) || (particle.body.position.x > 333 && particle.body.position.x < 417)) {
-        score = score + r2;
-        console.log(r2)
-
-
-      }
-
-      else {
-        score = score + r1;
-        console.log(r1)
-
-
-
-
-
-      }
-
-      particle = null;
-      count++;
-      if (count > 4) { gameState = "end"; }
+  for (let i = nope; i < particles.length; i++) {
+    particles[i].display();
+    particle = particles[i];
+    if (particle != null) {
+      particle.display();
+  
+      if (particle.body.position.y > 540) {
+        console.log(particle.body.position.x)
+        if (particle.body.position.x < 85 || particle.body.position.x > 417) {
+          score = score + r3;
+          console.log(r3)
+        }
+  
+        else if ((particle.body.position.x > 85 && particle.body.position.x < 167) || (particle.body.position.x > 333 && particle.body.position.x < 417)) {
+          score = score + r2;
+          console.log(r2)
+        }
+  
+        else {
+          score = score + r1;
+          console.log(r1)
+        }
+  
+        particle = null;
+        // count++;
+        nope++;
+        if (count > 4) { gameState = "end"; }
+      }else break;
     }
   }
+  //console.log(count)
+  
 
 
   if (gameState == "end") {
@@ -234,10 +229,11 @@ function draw() {
 function mouseReleased() {
 
   console.log(turn);
-  if (count < 6) {
+  if (count < 5) {
     if (gameState !== "end") {
       particle = new Particle(mouseX, 30, 12);
       particles.push(particle);
+      count++;
       //turn--;
     }
   }
